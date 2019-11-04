@@ -1,7 +1,7 @@
 import sys
 
 
-def find_capital(capital, states, capital_cities):
+def find_state(capital, states, capital_cities):
     code = None
     for k, v in capital_cities.items():
         if v == capital:
@@ -28,7 +28,7 @@ def main():
     }
     argv = sys.argv
     if len(argv) == 2:
-        capital = find_capital(argv[1], states, capital_cities)
+        capital = find_state(argv[1], states, capital_cities)
         print(capital) if capital is not None else print('Unknown capital')
 
 

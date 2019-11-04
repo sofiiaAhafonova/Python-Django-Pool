@@ -1,7 +1,7 @@
 import sys
 
 
-def find_state(state, states, capital_cities):
+def find_capital(state, states, capital_cities):
     code = states.get(state, None)
     if code:
         return capital_cities[code]
@@ -24,7 +24,7 @@ def main():
     }
     argv = sys.argv
     if len(argv) == 2:
-        state = find_state(argv[1], states, capital_cities)
+        state = find_capital(argv[1], states, capital_cities)
         print(state) if state is not None else print('Unknown state')
 
 if __name__ == "__main__":
