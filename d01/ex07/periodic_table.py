@@ -28,7 +28,8 @@ def content(file, table):
 		if current - previous > 1:
 			s += "<td colspan='" + str(current - previous - 1) + "'></td>"
 		s += "<td><h4>" + elem['name'] + "</h4>"
-		s += "<ul><li>" + elem['number'] +"</li><li>" + elem['small'] +"</li><li>"  + elem['molar'] + "</li><li>" + elem['electron'] + "</li>" +"</ul></td>"
+		s += "<ul><li>" + elem['number'] + "</li><li>" + elem['small'] + "</li><li>" + \
+		    elem['molar'] + "</li><li>" + elem['electron'] + "</li>" + "</ul></td>"
 		if current == 17:
 			s += "</tr>"
 			current = 0
@@ -41,7 +42,8 @@ def header(file):
 	file.write("<!DOCTYPE html>\n")
 	file.write("<html lang='en'>\n")
 	file.write("<head>\n<meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Periodic table</title>\n")
-	file.write("<style>table {	width: 100%;} td {border: 1px solid black; padding:10px} </style></head>\n")
+	file.write(
+	    "<style>table {	width: 100%;} td {border: 1px solid black; padding:10px} ul {list-style-type: none;} </style></head>\n")
 
 def body(file, table):
 	file.write("<body>\n")
