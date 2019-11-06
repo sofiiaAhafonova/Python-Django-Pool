@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<title>{title}</title>
+</head>
+<body>
+    <div>First Name: {first_name}</div>
+    <div>Last Name: {last_name}</div>
+    <div>Age: {age}</div>
+    <div>Profession: {profession}</div>
+</body>
+</html>
