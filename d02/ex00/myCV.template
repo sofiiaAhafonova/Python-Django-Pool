@@ -5,8 +5,8 @@
 	<title>{title}</title>
 </head>
 <body>
-    <div>First Name: {first_name}</div>
-    <div>Last Name: {last_name}</div>
+    <div>First Name: {name}</div>
+    <div>Last Name: {surname}</div>
     <div>Age: {age}</div>
     <div>Profession: {profession}</div>
 </body>
