@@ -1,0 +1,9 @@
+html, body{
+    height: 100%;
+    background-color: #aabace;
+}
+
+h1 {
+    color: #2a3c52;
+    padding: 10px;
+}
