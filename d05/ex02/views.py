@@ -133,7 +133,7 @@ def display(request):
     response = curr.fetchall()
     conn.close()
     if response:
-        return render(request, 'display.html', {'data': response})
+        return render(request, 'ex02/display.html', {'data': response})
     else:
         return HttpResponse("No data available")
 
