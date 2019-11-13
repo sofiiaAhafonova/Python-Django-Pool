@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.conf import settings
 import random
-from ex.forms import InscriptionForm, ConnectionForm,TipForm
+from ex.forms import SignupForm, LoginForm, TipForm
 from django.contrib import auth
 from django.contrib.auth.models import User
 from ex.models import Tip, Upvote, Downvote
@@ -9,58 +9,40 @@ from ex.models import Tip, Upvote, Downvote
 
 def home(request):
 	tips = Tip.objects.all().order_by('date')
-
 	if request.method == 'POST':
 		if 'deletetip' in request.POST:
-			# on ne passe ici que si l'utilisateur a clique sur un bouton nomme deletetip
-			print("demande de suppression d'un tip")
-			# il faut initialiser un form pour la partie TipForm
+			print("removal request for a tip")
 			form = TipForm()
-			t = Tip.objects.filter(id = request.POST['tipid']) # recherche 
+			t = Tip.objects.filter(id = request.POST['tipid'])
 			t.delete()
 		elif 'upvote' in request.POST:
-			# on ne passe ici que si l'utilisateur a clique sur un bouton nomme upvote
-			print("demande de upvote")
-			# il faut initialiser un form pour la partie TipForm
+			print("upvote request")
 			form = TipForm()
-			# chercher tous les Upvote relies au Tip :
 			ts = Tip.objects.filter(id = request.POST['tipid'])
 			if len(ts) > 0:
-				t = ts[0] # le premier tip de la liste est le bon (il n'y en a qu'un)
+				t = ts[0]
 				t.upvoteForUser(request.user.username)
-
-
 		elif 'downvote' in request.POST:
-			# on ne passe ici que si l'utilisateur a clique sur un bouton nomme downvote
-			print("demande de downvote")
-			# il faut initialiser un form pour la partie TipForm
+			print("downvote request")
 			form = TipForm()
-			# chercher tous les Upvote relies au Tip :
 			ts = Tip.objects.filter(id = request.POST['tipid'])
 			if len(ts) > 0:
-				t = ts[0] # le premier tip de la liste est le bon (il n'y en a qu'un)
+				t = ts[0]
 				t.downvoteForUser(request.user.username)
-
-
-		else: # cas ou l'on a valide le TipForm
+		else: 
 			form = TipForm (request.POST)
 			if form.is_valid():
-				# creer le Tip
 				data = form.cleaned_data
-				tip = Tip(contenu = data['contenu'], auteur = request.user.username)
+				tip = Tip(content = data['content'], auteur = request.user.username)
 				tip.save()
-				print('Nouveau Tip créé',tip)
+				print('New Tip Created',tip)
 				#return redirect('/')
-	else: # methode 'GET':
+	else: # method 'GET':
 		form = TipForm ()
-
-
-
 	if request.COOKIES.get('mycookie'):
 		usador = request.COOKIES['mycookie']
 		response = render(request, 'ex/index.html', {'usador': usador, 'tips' : tips, 'form': form})
 	else:
-		# il n'y a pas de cookie ou bien le precedent est arrive a echeance
 		usador = random.choice(settings.USER_NAMES)
 		response = render(request, 'ex/index.html', {'usador': usador, 'tips' : tips, 'form': form})
 		response.set_cookie('mycookie', usador, max_age = settings.SESSION_COOKIE_DURATION)
@@ -70,46 +52,45 @@ def home(request):
 
 
 
-def connetion(request):
-	if request.user.is_authenticated(): # si je suis deja authentifie, je vais vers home
+def login(request):
+	if request.user.is_authenticated:
 		return redirect('/')
 	if request.method == 'POST':
-		form = ConnectionForm (request.POST)
+		form = LoginForm(request.POST)
 		if form.is_valid():
 			data = form.cleaned_data
 			u = auth.authenticate(username=data['username'], password=data['password'])
 			if u and u.is_active:
-				auth.login(request, u) # on se loggue
-				print('Utilisateur connecté')
+				auth.login(request, u)
+				print('User logged in')
 				return redirect('/')
 			else:
-				print('Utilisateur inconnu ou inactif')
-				form._errors['username'] = ['Utilisateur inconnu ou inactif']
+				print('Unknown or inactive user')
+				form._errors['username'] = ['Unknown or inactive user']
 
 
-	else: # methode 'GET':
-		form = ConnectionForm ()
+	else: # method 'GET':
+		form = LoginForm()
 
-	return render(request, 'ex/connetion.html', {'usador': None, 'form': form, })
+	return render(request, 'ex/login.html', {'usador': request.user, 'form': form, })
 
-def inscription(request):
-	if request.user.is_authenticated(): # si je suis deja authentifie, je vais vers home
+def signup(request):
+	if request.user.is_authenticated:
 		return redirect('/')
 	if request.method == 'POST':
-		form = InscriptionForm (request.POST)
+		form = SignupForm(request.POST)
 		if form.is_valid():
-			# creer le user
 			data = form.cleaned_data
-			u = User.objects.create_user(data['username'], None, data['password'])
+			u = User.objects.create_user(username=data['username'], password=data['password'])
 			u.save()
-			auth.login(request, u) # on se loggue
-			print('Utilisateur créé et loggué ',u)
+			auth.login(request, u)
+			print('User created and logged in ',u)
 
 			return redirect('/')
-	else: # methode 'GET':
-		form = InscriptionForm ()
+	else: # method 'GET':
+		form = SignupForm()
 
-	return render(request, 'ex/register.html', {'usador': None, 'form': form, })
+	return render(request, 'ex/signup.html', {'usador': request.user, 'form': form, })
 
 
 def logout(request):

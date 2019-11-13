@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
 
 {% block headlines %}
-Connetion
+Login
 {% endblock %}
 {% block content %} 
 {% include 'nav.html' %}
@@ -11,7 +11,7 @@ Connetion
     <form method="POST" class='form'>
         {% csrf_token %}
         {{ form.as_p }}
-        <input type='submit' value='Validate'>
+        <input type='submit' value='Submit'>
     </form>
 </div>
 <div>

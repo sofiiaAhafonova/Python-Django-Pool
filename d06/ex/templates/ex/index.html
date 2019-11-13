@@ -7,16 +7,16 @@ Home sweet home
 {% block content %} 
 {% include 'nav.html' %}
 
-<h1> Bienvenue sur mon site de trucs et astuces </h1>
+<h1> Welcome to my site tips and tricks </h1>
 
 
 {% if user.is_authenticated %}
-<h2> Saisissez un nouveau truc ou une nouvelle astuce </h2>
+<h2> Enter a new tip or trick</h2>
 <div>
     <form method="POST" class='form'>
         {% csrf_token %}
         {{ form }}
-        <input type='submit' name='tipform' value='Valider'>
+        <input type='submit' name='tipform' value='Submit'>
     </form>
 </div>
 <div>
@@ -33,7 +33,7 @@ Home sweet home
             <form method='POST' class='form'>
             {% csrf_token %}
             <input type='hidden' name='tipid' value='{{ tip.id }}'>
-            <input type='submit' name='deletetip' value='Supprimer'>
+            <input type='submit' name='deletetip' value='Delete'>
             <input type='submit' name='upvote' value='Upvote'>
             <input type='submit' name='downvote' value='Downvote'>
             </form>

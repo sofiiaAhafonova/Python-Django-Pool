@@ -9,22 +9,12 @@
         Django is beautiful    
     {% endblock %}
   </title>
-    {% load bootstrap3 %}
-
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery=1 %}
-
+  {% load bootstrap3 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
 </head>
 <body>
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-
-
   {% block content %}
   {% endblock %}
-
-
-
 </body>
 </html>
