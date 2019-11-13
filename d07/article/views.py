@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, FormView, TemplateView,DetailView
 from article.models import ArticleModel, UserFavoriteArticle
 from django.contrib.auth.forms import AuthenticationForm
-
+from article.forms import AddFavoriteArticleForm
 
 class HomeView(TemplateView):
     model = ArticleModel
@@ -42,3 +42,8 @@ class ArticleDetailView(DetailView):
 class FavoritesView(ListView):
     model = UserFavoriteArticle
     template_name = "article/favorites.html"
+
+class AddFavoriteView(FormView):
+    form_class = AddFavoriteArticleForm
+    template_name = "article/detail.html"
+    success_url = "/"
