@@ -14,7 +14,7 @@ class ArticleModel(models.Model):
     def __str__(self):
         return self.title
 
-class UserFavouriteArticle(models.Model):
+class UserFavoriteArticle(models.Model):
     user = models.ForeignKey(User, null = False, on_delete=models.CASCADE)
     article = models.ForeignKey(ArticleModel, null = False, on_delete=models.CASCADE)
 

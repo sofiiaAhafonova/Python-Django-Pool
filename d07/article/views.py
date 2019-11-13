@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import ListView, FormView, TemplateView
-from article.models import ArticleModel
+from django.views.generic import ListView, FormView, TemplateView,DetailView
+from article.models import ArticleModel, UserFavoriteArticle
 from django.contrib.auth.forms import AuthenticationForm
 
 
@@ -28,3 +28,17 @@ class ArticleView(ListView):
     def get_context_data(self, **kwargs):
         context = super(ArticleView, self).get_context_data(**kwargs)
         context["user"] = self.request.user
+
+class PublicationsView(ListView):
+    model = ArticleModel
+    template_name = "article/publications.html"
+
+
+class ArticleDetailView(DetailView):
+    model = ArticleModel
+    template_name = "article/detail.html"
+    
+    
+class FavoritesView(ListView):
+    model = UserFavoriteArticle
+    template_name = "article/favorites.html"
