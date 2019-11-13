@@ -10,11 +10,17 @@ from ex.models import Tip, Upvote, Downvote
 def home(request):
 	tips = Tip.objects.all().order_by('date')
 	if request.method == 'POST':
+		print(Tip.objects.get(id = request.POST['tipid']).auteur)
+		if Tip.objects.filter(id = request.POST['tipid']).auteur == request.user:
+			print(request.user)
 		if 'deletetip' in request.POST:
 			print("removal request for a tip")
-			form = TipForm()
-			t = Tip.objects.filter(id = request.POST['tipid'])
-			t.delete()
+			if (request.user.has_perm('ex.deletetip') or
+				Tip.objects.get(id=request.POST.get('deletetip')).auteur == request.user):
+
+				form = TipForm()
+				t = Tip.objects.filter(id = request.POST['tipid'])
+				t.delete()
 		elif 'upvote' in request.POST:
 			print("upvote request")
 			form = TipForm()

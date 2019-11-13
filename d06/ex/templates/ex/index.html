@@ -33,10 +33,13 @@ Home sweet home
             <form method='POST' class='form'>
             {% csrf_token %}
             <input type='hidden' name='tipid' value='{{ tip.id }}'>
-            <input type='submit' name='deletetip' value='Delete'>
+            {% if  perms.exos.deletetip or tip.auteur == request.user %}
+                <input type='submit' name='deletetip' value='Delete'>
+            {% endif %}
             <input type='submit' name='upvote' value='Upvote'>
             <input type='submit' name='downvote' value='Downvote'>
             </form>
+
             {% endif %}
         </li>
     {% endfor %}

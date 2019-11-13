@@ -61,3 +61,6 @@ class Tip(models.Model):
 		return str(self.date) + ' ' + self.content + ' by ' + self.auteur \
 			+ ' upvotes : ' + str(len(self.upvote.all())) \
 			+ ' downvotes : ' + str(len(self.downvote.all()))
+
+	def get_auteur(self):
+		return self.auteur
