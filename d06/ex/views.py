@@ -5,18 +5,17 @@ from ex.forms import SignupForm, LoginForm, TipForm
 from django.contrib import auth
 from django.contrib.auth.models import User
 from ex.models import Tip, Upvote, Downvote
+from django.forms.models import model_to_dict
+
 # Create your views here.
 
 def home(request):
 	tips = Tip.objects.all().order_by('date')
 	if request.method == 'POST':
-		print(Tip.objects.get(id = request.POST['tipid']).auteur)
-		if Tip.objects.filter(id = request.POST['tipid']).auteur == request.user:
-			print(request.user)
 		if 'deletetip' in request.POST:
 			print("removal request for a tip")
 			if (request.user.has_perm('ex.deletetip') or
-				Tip.objects.get(id=request.POST.get('deletetip')).auteur == request.user):
+				model_to_dict(Tip.objects.get(id=request.POST['tipid'])).get('auteur') == request.user.username):
 
 				form = TipForm()
 				t = Tip.objects.filter(id = request.POST['tipid'])

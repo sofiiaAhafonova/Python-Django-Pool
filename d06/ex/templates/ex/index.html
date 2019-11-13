@@ -21,24 +21,24 @@ Home sweet home
 </div>
 <div>
 {% endif %}
-
 <div>
     <h2>All the tips and tricks of the site</h2>
     <div class='tricklist'>
     <ul class='list-group'>
     {% for tip in tips %}
         <li class='list-group-item'>
+
             {{ tip }}
             {% if user.is_authenticated %}
-            <form method='POST' class='form'>
-            {% csrf_token %}
-            <input type='hidden' name='tipid' value='{{ tip.id }}'>
-            {% if  perms.exos.deletetip or tip.auteur == request.user %}
-                <input type='submit' name='deletetip' value='Delete'>
-            {% endif %}
-            <input type='submit' name='upvote' value='Upvote'>
-            <input type='submit' name='downvote' value='Downvote'>
-            </form>
+                <form method='POST' class='form'>
+                {% csrf_token %}
+                <input type='hidden' name='tipid' value='{{ tip.id }}'>
+                {% if  tip.auteur == request.user.username or perms.ex.deletetip %}
+                    <input type='submit' name='deletetip' value='Delete'>
+                {% endif %}
+                <input type='submit' name='upvote' value='Upvote'>
+                <input type='submit' name='downvote' value='Downvote'>
+                </form>
 
             {% endif %}
         </li>
