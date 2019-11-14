@@ -5,7 +5,7 @@ Your publications
 {% block content %} 
 <h1>Your publications</h1>
 {% if user.is_authenticated %}
-<table class='table table-bordered'>
+<table class='table'>
 	<th>Creation date</th>
 	<th>Title</th>
 	<th>Synopsis</th>
@@ -20,7 +20,7 @@ Your publications
 	{% endfor %}
 </table>
  <form class="form-group" action="{% url 'publish' %}" method="GET">
-  <input class="btn btn-default"  type="submit" value="Publish">
+  <input class="btn btn-primary"  type="submit" value="Publish">
 </form> 
 {% else %}
 Restricted area, please login

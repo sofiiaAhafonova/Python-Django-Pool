@@ -7,7 +7,7 @@ Favorite list
 {% block content %} 
 <h1>Your favorites</h1>
 {% if user.is_authenticated %}
-<table class='table table-bordered'>
+<table class='table'>
 	<th>Title</th>
 	<th>Author</th>
 	{% for favorite in object_list %}
