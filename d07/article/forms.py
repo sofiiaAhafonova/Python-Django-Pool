@@ -1,10 +1,11 @@
 from django.forms import forms
 from django.forms import ModelForm
-from article.models import ArticleModel
+from article.models import ArticleModel, UserFavoriteArticle
 
-class AddFavoriteArticleForm(forms.Form):
-    pass
-
+class AddFavoriteArticleForm(ModelForm):
+     class Meta:
+        model = UserFavoriteArticle
+        fields = []
 
 class ArticleForm(ModelForm):
      class Meta:

@@ -12,7 +12,10 @@ Article details
 	<p>{{ object.content }}</p>
 	<p>Author: {{ object.author }}</p>
 	<p>Created: {{ object.created|date }}</p>
-
+	<form class="form-group" action="{% url 'add_favorite' pk=object.id  %}" method="POST">
+		{% csrf_token %}
+		<input class="btn btn-default"  type="submit" value="Add to favorites">
+	</form> 
 {% else %}
 Restricted area, please login
 {% endif %}
