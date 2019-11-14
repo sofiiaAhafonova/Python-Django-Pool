@@ -16,10 +16,10 @@ Article list
 	{% for article in object_list %}
 	<tr>
 	    <td>{{ article.title }}</td>
-    	<td>{{ article.synopsis }}</td>
+    	<td class="myclass">{{ article.synopsis }}</td>
      	<td>{{ article.author }}</td>
     	<td>{{article.created }}</td>
-	    <td>when</a></td>   
+	    <td>{% now 'r' %}</a></td>   
 		<td><form class="form-group" action="{% url 'detail' pk=article.id %}">
 			<input  class="btn btn-default" type="submit" value="Read" />
 		</form></td>

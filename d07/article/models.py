@@ -10,6 +10,8 @@ class ArticleModel(models.Model):
 
     class Meta:
         db_table = 'articles'
+        ordering = ['-created']
+
 
     def __str__(self):
         return self.title

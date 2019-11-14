@@ -16,6 +16,7 @@ class LoginView(FormView):
 
 class ArticleView(ListView):
     model = ArticleModel
+    paginate_by = 50
     template_name = "article/articles.html"
 
 
