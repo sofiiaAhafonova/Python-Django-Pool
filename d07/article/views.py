@@ -1,33 +1,23 @@
 from django.shortcuts import render
-from django.views.generic import ListView, FormView, TemplateView,DetailView
+from django.views.generic import ListView, FormView, TemplateView,DetailView, RedirectView
 from article.models import ArticleModel, UserFavoriteArticle
 from django.contrib.auth.forms import AuthenticationForm
-from article.forms import AddFavoriteArticleForm
+from article.forms import AddFavoriteArticleForm, ArticleForm
 
-class HomeView(TemplateView):
+class HomeView(ListView):
     model = ArticleModel
     template_name = "article/articles.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(HomeView, self).get_context_data(**kwargs)
-        context["user"] = self.request.user
 
 class LoginView(FormView):
     form_class = AuthenticationForm
     template_name = "article/login.html"
     success_url = "/"
 
-    def get_context_data(self, **kwargs):
-        context = super(LoginView, self).get_context_data(**kwargs)
-        context["user"] = self.request.user
 
 class ArticleView(ListView):
     model = ArticleModel
     template_name = "article/articles.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(ArticleView, self).get_context_data(**kwargs)
-        context["user"] = self.request.user
 
 class PublicationsView(ListView):
     model = ArticleModel
@@ -47,3 +37,15 @@ class AddFavoriteView(FormView):
     form_class = AddFavoriteArticleForm
     template_name = "article/detail.html"
     success_url = "/"
+
+class PublishView(FormView):
+    form_class = ArticleForm
+    template_name = "article/publish.html"
+    success_url = "/"
+
+    def form_valid(self, form):
+        item = form.save(commit=False)
+        item.author = self.request.user
+        item.save()
+        return super().form_valid(form)
+

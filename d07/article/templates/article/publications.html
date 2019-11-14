@@ -19,6 +19,9 @@ Your publications
 	    {% endif %}
 	{% endfor %}
 </table>
+ <form class="form-group" action="{% url 'publish' %}" method="GET">
+  <input class="btn btn-default"  type="submit" value="Publish">
+</form> 
 {% else %}
 Restricted area, please login
 {% endif %}

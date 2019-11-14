@@ -12,11 +12,7 @@ Article details
 	<p>{{ object.content }}</p>
 	<p>Author: {{ object.author }}</p>
 	<p>Created: {{ object.created|date }}</p>
-	<form method="POST" action="{% url 'add_favorite' %}">
-		<input hidden value="{{object.id}}">
-		<input hidden value="{{ user.username}}">
-		<button type="submit" class="btn btn-default" value="add_favorite" >Add to favorites</button>
-	</form>
+
 {% else %}
 Restricted area, please login
 {% endif %}
