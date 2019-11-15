@@ -1,5 +1,5 @@
 from django.urls import path, include
-from galery.views import HomePageView, ImageFormViev
+from gallery.views import HomePageView, ImageFormViev
 from django.conf import settings # new
 from django.conf.urls.static import static
 urlpatterns = [
