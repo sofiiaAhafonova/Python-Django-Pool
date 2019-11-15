@@ -1,1 +1,1 @@
-gunicorn -c ../gunicorn.conf.py d08.wsgi
+gunicorn -c gunicorn.conf.py d08.wsgi
