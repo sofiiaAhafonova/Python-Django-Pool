@@ -7,11 +7,15 @@
     Gallery
   </title>
 {% load bootstrap3 %}
-
+{% load static %}
 {# Load CSS and JavaScript #}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery=1 %}
-
+<style>
+  body {
+    background-image: url("{% static 'img/background.jpg' %}");
+  }
+</style>
 </head>
 <body>
     {# Display django.contrib.messages as Bootstrap alerts #}
